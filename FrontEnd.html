@@ -137,6 +137,17 @@
     <footer class="border-t border-slate-800 py-12 px-6 text-center text-slate-500">
         <p class="text-sm">© 2026 RetroWorld Store - Hecho para coleccionistas.</p>
     </footer>
-
+  <script>
+    document  
+        .addEventListener("juegos", async function (e) {
+          e.preventDefault();
+          console.log("Haciendo fetch")
+          const response = await fetch(
+            `http://10.1.192.78:8080/juegos`
+          )
+          const data = await response.json();
+          console.log("Respuesta juegos:", data);
+        })
+  </script>
 </body>
 </html>
