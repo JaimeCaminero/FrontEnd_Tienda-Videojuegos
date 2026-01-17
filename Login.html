@@ -44,16 +44,16 @@
                 <p class="text-slate-400 text-sm">Introduce tus credenciales de jugador</p>
             </div>
 
-            <form action="#" class="space-y-6">
+            <form action="#" class="space-y-6" id="loginForm">
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2 ml-1">Email</label>
-                    <input type="email" placeholder="player1@retro.com" 
+                    <input type="email" placeholder="player1@retro.com" id = "txtMail"
                         class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-white">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-widest text-indigo-400 mb-2 ml-1">Contraseña</label>
-                    <input type="password" placeholder="••••••••" 
+                    <input type="password" placeholder="••••••••" id = "txtPwd"
                         class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition text-white">
                 </div>
 
@@ -81,5 +81,32 @@
         © 2026 RetroWorld Store - Secure Connection Established.
     </footer>
 
+    <script>
+
+        //@GetMapping("/login/{nombre}/{pwd}")
+        //Miramos al formulario y atendemos a su boton
+        document.getElementById("loginForm").addEventListener("submit", async function (params) {
+            params.preventDefault()
+
+            const mail = document.getElementById("txtMail").value
+            const pwd = document.getElementById("txtPwd").value
+
+            console.log("Intento de hacer login recibido, llamando a la api...")
+            const response = await fetch(
+            `http://10.1.192.78:8080/login?nombre=${mail}&pwd=${pwd}`
+            )
+
+            const data = await response.json()
+            console.log("Respuesta login:", data)
+
+            if (data == null) {
+                //Programar una respuesta visual sobre el fallo
+                console.log("login fallido")
+            } else {
+                //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
+                window.location.href = "FrontEnd.html"
+            }
+        })
+    </script>
 </body>
 </html>
