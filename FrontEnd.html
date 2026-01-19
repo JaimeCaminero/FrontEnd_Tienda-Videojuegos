@@ -9,8 +9,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700;900&display=swap');
-        .retro-title { font-family: 'Press Start 2P', cursive; }
-        .body-text { font-family: 'Inter', sans-serif; }
+
+        .retro-title {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .body-text {
+            font-family: 'Inter', sans-serif;
+        }
+
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -38,18 +45,23 @@
 
             <div class="flex items-center gap-6">
                 <div class="relative group">
-                    <button class="flex items-center gap-2 focus:outline-none border-2 border-transparent group-hover:border-indigo-500/50 rounded-full transition p-1">
-                        <img src="https://ui-avatars.com/api/?name=Jaime&background=4f46e5&color=fff" class="w-9 h-9 rounded-full shadow-lg" alt="Avatar">
+                    <button
+                        class="flex items-center gap-2 focus:outline-none border-2 border-transparent group-hover:border-indigo-500/50 rounded-full transition p-1">
+                        <img src="https://ui-avatars.com/api/?name=Jaime&background=4f46e5&color=fff"
+                            class="w-9 h-9 rounded-full shadow-lg" alt="Avatar">
                     </button>
-                    <div class="absolute right-0 mt-4 w-56 bg-[#0f172a] border border-slate-700 rounded-xl shadow-2xl overflow-hidden hidden group-hover:block">
+                    <div
+                        class="absolute right-0 mt-4 w-56 bg-[#0f172a] border border-slate-700 rounded-xl shadow-2xl overflow-hidden hidden group-hover:block">
                         <div class="px-5 py-4 border-b border-slate-700 bg-slate-800/50">
                             <p class="font-bold text-white">Hola, <span class="text-indigo-400">Jaime</span></p>
                         </div>
                         <div class="py-2">
-                            <a href="MisJuegos.html" class="block px-5 py-3 text-sm text-slate-300 hover:bg-indigo-600 hover:text-white transition flex items-center gap-3">
+                            <a href="MisJuegos.html"
+                                class="block px-5 py-3 text-sm text-slate-300 hover:bg-indigo-600 hover:text-white transition flex items-center gap-3">
                                 <i class="fa-solid fa-box-open"></i> Mis Juegos
                             </a>
-                            <a href="#" class="block px-5 py-3 text-sm text-rose-400 hover:bg-rose-600 hover:text-white transition flex items-center gap-3">
+                            <a href="#"
+                                class="block px-5 py-3 text-sm text-rose-400 hover:bg-rose-600 hover:text-white transition flex items-center gap-3">
                                 <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
                             </a>
                         </div>
@@ -65,10 +77,15 @@
                 class="absolute inset-0 w-full h-full object-cover opacity-40" alt="Fondo Retro">
             <div class="absolute inset-0 bg-gradient-to-r from-[#0f172a] via-transparent to-transparent"></div>
             <div class="relative z-10 p-12 max-w-2xl">
-                <span class="bg-indigo-500/20 text-indigo-300 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4 inline-block border border-indigo-500/30">Novedades de la semana</span>
-                <h1 class="text-6xl font-black mb-6 leading-none italic">REVIVE LA ÉPOCA <span class="text-indigo-500">DORADA</span></h1>
+                <span
+                    class="bg-indigo-500/20 text-indigo-300 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4 inline-block border border-indigo-500/30">Novedades
+                    de la semana</span>
+                <h1 class="text-6xl font-black mb-6 leading-none italic">REVIVE LA ÉPOCA <span
+                        class="text-indigo-500">DORADA</span></h1>
                 <p class="text-slate-400 text-lg mb-8">Encuentra los cartuchos originales que marcaron tu infancia.</p>
-                <a href="Tienda.html" class="bg-white text-slate-900 px-10 py-4 rounded-xl font-black hover:bg-indigo-500 hover:text-white transition-all inline-block">EXPLORAR TIENDA</a>
+                <a href="Tienda.html"
+                    class="bg-white text-slate-900 px-10 py-4 rounded-xl font-black hover:bg-indigo-500 hover:text-white transition-all inline-block">EXPLORAR
+                    TIENDA</a>
             </div>
         </div>
     </header>
@@ -105,23 +122,25 @@
             const data = await response.json();
             console.log(data)
 
-            buildGameCards(data)
+
+            if (data != null) {
+                if (data.length > 8) {
+                    cap = 8
+                } else {
+                    cap = data.length
+                }
+                buildGameCards(data, cap)
+            }
         }
 
-        async function buildGameCards(juegos) {
+        async function buildGameCards(juegos, cap) {
             const target = document.getElementById("escaparate")
-
-            if (juegos.length > 8) {
-                const cap = 8
-            } else {
-                cap = juegos.length
-            }
 
             for (let index = 0; index < cap; index++) {
                 game = juegos[index]
-                console.log("montando carta de juego ",index+1)
+                console.log("montando carta de juego ", index + 1)
                 target.insertAdjacentHTML('beforeend',
-                `
+                    `
                 <div class="group cursor-pointer">
                 <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
                     <img src="${game.imagen}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">

@@ -78,44 +78,8 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-6 pb-24">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10" id = "escaparate">
             
-            <div class="group cursor-pointer">
-                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-5 glass border border-slate-800 transition-all duration-500 card-glow">
-                    <img src="https://m.media-amazon.com/images/I/81vSOnG65PL._AC_SL1500_.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent opacity-60"></div>
-                </div>
-                <h3 class="font-bold text-lg mb-1 group-hover:text-indigo-400 transition italic uppercase">Zelda: Ocarina of Time</h3>
-                <p class="text-indigo-400 font-black text-2xl italic">89.95€</p>
-            </div>
-
-            <div class="group cursor-pointer">
-                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-5 glass border border-slate-800 transition-all duration-500 card-glow">
-                    <img src="https://media3.gameplaystores.es/76598-large_default/super-mario-bros-cartucho-nes.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent opacity-60"></div>
-                </div>
-                <h3 class="font-bold text-lg mb-1 group-hover:text-indigo-400 transition italic uppercase">Super Mario World</h3>
-                <p class="text-indigo-400 font-black text-2xl italic">45.00€</p>
-            </div>
-
-            <div class="group cursor-pointer">
-                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-5 glass border border-slate-800 transition-all duration-500 card-glow">
-                    <img src="https://m.media-amazon.com/images/I/9199N0-4ZOL._AC_SL1500_.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent opacity-60"></div>
-                </div>
-                <h3 class="font-bold text-lg mb-1 group-hover:text-indigo-400 transition italic uppercase">Pokémon Rojo</h3>
-                <p class="text-indigo-400 font-black text-2xl italic">55.00€</p>
-            </div>
-
-            <div class="group cursor-pointer">
-                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-5 glass border border-slate-800 transition-all duration-500 card-glow">
-                    <img src="https://m.media-amazon.com/images/I/81L67Yg4-3L._AC_SL1500_.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent opacity-60"></div>
-                </div>
-                <h3 class="font-bold text-lg mb-1 group-hover:text-indigo-400 transition italic uppercase">Metal Gear Solid</h3>
-                <p class="text-indigo-400 font-black text-2xl italic">65.00€</p>
-            </div>
-
         </div>
     </main>
 
@@ -123,5 +87,44 @@
         <p class="text-sm">© 2026 RetroWorld Store.</p>
     </footer>
 
+    <script>
+        const SERVERIP = "127.0.0.1" //10.1.192.78
+
+        fetchGames()
+
+        //Como usamos el contenido de este fetch para montar la pantalla con todos los juegos disponibles?
+        async function fetchGames() {
+            console.log("Haciendo fetch de endpoint de juegos")
+            const response = await fetch(
+                `http://${SERVERIP}:8080/juegos`
+            )
+            const data = await response.json();
+            console.log(data)
+
+            if (data != null) {
+                buildGameCards(data, data.length)
+            }
+        }
+
+        async function buildGameCards(juegos, cap) {
+            const target = document.getElementById("escaparate")
+
+            for (let index = 0; index < cap; index++) {
+                game = juegos[index]
+                console.log("montando carta de juego ",index+1)
+                target.insertAdjacentHTML('beforeend',
+                `
+                <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="${game.imagen}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
+                </div>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">${game.nombre}</h3>
+                <p class="text-indigo-400 font-black text-2xl">${game.precio}€</p>
+                </div>
+                `
+                )
+            }
+        }
+    </script>
 </body>
 </html>
