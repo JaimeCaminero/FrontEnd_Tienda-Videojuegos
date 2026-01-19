@@ -4,20 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RetroWorld - Escaparate</title>
+    <title>RetroWorld - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;700;900&display=swap');
-
-        .retro-title {
-            font-family: 'Press Start 2P', cursive;
-        }
-
-        .body-text {
-            font-family: 'Inter', sans-serif;
-        }
-
+        .retro-title { font-family: 'Press Start 2P', cursive; }
+        .body-text { font-family: 'Inter', sans-serif; }
         .glass {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -30,29 +23,38 @@
 
     <nav class="sticky top-0 z-50 glass py-4 px-6 mb-8">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
+            <a href="Home.html" class="flex items-center gap-3">
                 <div class="bg-indigo-600 p-2 rounded-lg">
                     <i class="fa-solid fa-gamepad text-2xl text-white"></i>
                 </div>
                 <span class="retro-title text-sm tracking-tighter text-indigo-400">RETRO<br>WORLD</span>
-            </div>
+            </a>
 
-            <ul class="hidden md:flex gap-8 font-bold text-sm uppercase tracking-widest text-slate-400">
-                <li class="hover:text-indigo-400 cursor-pointer transition">Tienda</li>
-                <li class="hover:text-indigo-400 cursor-pointer transition">Consolas</li>
-                <li class="hover:text-indigo-400 cursor-pointer transition">Comunidad</li>
+            <ul class="hidden md:flex gap-8 font-bold text-xs uppercase tracking-widest text-slate-400">
+                <li><a href="Home.html" class="text-white border-b-2 border-indigo-500 pb-1">Home</a></li>
+                <li><a href="Tienda.html" class="hover:text-indigo-400 transition">Tienda</a></li>
+                <li><a href="SubirJuego.html" class="hover:text-indigo-400 transition">Subir Juego</a></li>
             </ul>
 
             <div class="flex items-center gap-6">
-                <i class="fa-solid fa-magnifying-glass cursor-pointer hover:text-indigo-400"></i>
-                <div class="relative">
-                    <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400"></i>
-                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full">3</span>
+                <div class="relative group">
+                    <button class="flex items-center gap-2 focus:outline-none border-2 border-transparent group-hover:border-indigo-500/50 rounded-full transition p-1">
+                        <img src="https://ui-avatars.com/api/?name=Jaime&background=4f46e5&color=fff" class="w-9 h-9 rounded-full shadow-lg" alt="Avatar">
+                    </button>
+                    <div class="absolute right-0 mt-4 w-56 bg-[#0f172a] border border-slate-700 rounded-xl shadow-2xl overflow-hidden hidden group-hover:block">
+                        <div class="px-5 py-4 border-b border-slate-700 bg-slate-800/50">
+                            <p class="font-bold text-white">Hola, <span class="text-indigo-400">Jaime</span></p>
+                        </div>
+                        <div class="py-2">
+                            <a href="MisJuegos.html" class="block px-5 py-3 text-sm text-slate-300 hover:bg-indigo-600 hover:text-white transition flex items-center gap-3">
+                                <i class="fa-solid fa-box-open"></i> Mis Juegos
+                            </a>
+                            <a href="#" class="block px-5 py-3 text-sm text-rose-400 hover:bg-rose-600 hover:text-white transition flex items-center gap-3">
+                                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <button
-                    class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-full font-bold text-sm transition shadow-[0_0_15px_rgba(79,70,229,0.4)]">
-                    <i class="fa-solid fa-user mr-2"></i> LOGIN
-                </button>
             </div>
         </div>
     </nav>
@@ -62,20 +64,11 @@
             <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
                 class="absolute inset-0 w-full h-full object-cover opacity-40" alt="Fondo Retro">
             <div class="absolute inset-0 bg-gradient-to-r from-[#0f172a] via-transparent to-transparent"></div>
-
             <div class="relative z-10 p-12 max-w-2xl">
-                <span
-                    class="bg-indigo-500/20 text-indigo-300 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4 inline-block border border-indigo-500/30">
-                    Novedades de la semana
-                </span>
-                <h1 class="text-6xl font-black mb-6 leading-none">REVIVE LA ÉPOCA <span
-                        class="text-indigo-500 tracking-tighter">DORADA</span></h1>
-                <p class="text-slate-400 text-lg mb-8">Encuentra los cartuchos originales que marcaron tu infancia.
-                    Verificados, limpios y listos para jugar.</p>
-                <button
-                    class="bg-white text-slate-900 px-10 py-4 rounded-xl font-black hover:bg-indigo-400 hover:text-white transition-all transform hover:-translate-y-1">
-                    EXPLORAR JUEGOS
-                </button>
+                <span class="bg-indigo-500/20 text-indigo-300 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4 inline-block border border-indigo-500/30">Novedades de la semana</span>
+                <h1 class="text-6xl font-black mb-6 leading-none italic">REVIVE LA ÉPOCA <span class="text-indigo-500">DORADA</span></h1>
+                <p class="text-slate-400 text-lg mb-8">Encuentra los cartuchos originales que marcaron tu infancia.</p>
+                <a href="Tienda.html" class="bg-white text-slate-900 px-10 py-4 rounded-xl font-black hover:bg-indigo-500 hover:text-white transition-all inline-block">EXPLORAR TIENDA</a>
             </div>
         </div>
     </header>
@@ -83,93 +76,84 @@
     <main class="max-w-7xl mx-auto px-6 pb-20">
         <div class="flex justify-between items-end mb-10">
             <div>
-                <h2 class="text-3xl font-black mb-2 uppercase tracking-tighter italic">Escaparate de Videojuegos</h2>
+                <h2 class="text-3xl font-black mb-2 uppercase tracking-tighter italic text-indigo-500">Destacados</h2>
                 <div class="h-1 w-20 bg-indigo-500"></div>
             </div>
-            <a href="#" class="text-indigo-400 font-bold hover:underline">Ver todo el catálogo →</a>
+            <a href="Tienda.html" class="text-indigo-400 font-bold hover:underline italic">Ver catálogo completo →</a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
             <div class="group cursor-pointer">
-                <div
-                    class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-800 transition group-hover:border-indigo-500/50">
-                    <img src="https://m.media-amazon.com/images/I/81vSOnG65PL._AC_SL1500_.jpg"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                        alt="Zelda Ocarina">
-                    <div
-                        class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold">
-                        N64</div>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                        <button class="w-full bg-indigo-600 py-3 rounded-xl font-bold shadow-xl">Añadir al
-                            Carrito</button>
-                    </div>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="https://m.media-amazon.com/images/I/81vSOnG65PL._AC_SL1500_.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">N64</div>
                 </div>
-                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition">The Legend of Zelda: Ocarina of
-                    Time</h3>
-                <p class="text-indigo-400 font-black text-xl">89.95€</p>
-                <p class="text-slate-500 text-xs mt-1 uppercase tracking-widest font-bold">Estado: Como nuevo</p>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">The Legend of Zelda: Ocarina</h3>
+                <p class="text-indigo-400 font-black text-2xl">89.95€</p>
             </div>
 
             <div class="group cursor-pointer">
-                <div
-                    class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-800 transition group-hover:border-indigo-500/50">
-                    <img src="https://media3.gameplaystores.es/76598-large_default/super-mario-bros-cartucho-nes.jpg"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                        alt="Super Mario">
-                    <div
-                        class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold">
-                        SNES</div>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                        <button class="w-full bg-indigo-600 py-3 rounded-xl font-bold shadow-xl">Añadir al
-                            Carrito</button>
-                    </div>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="https://media3.gameplaystores.es/76598-large_default/super-mario-bros-cartucho-nes.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">SNES</div>
                 </div>
-                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition">Super Mario World</h3>
-                <p class="text-indigo-400 font-black text-xl">45.00€</p>
-                <p class="text-slate-500 text-xs mt-1 uppercase tracking-widest font-bold">Estado: Bueno</p>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">Super Mario World</h3>
+                <p class="text-indigo-400 font-black text-2xl">45.00€</p>
             </div>
 
             <div class="group cursor-pointer">
-                <div
-                    class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-800 transition group-hover:border-indigo-500/50">
-                    <img src="https://media3.gameplaystores.es/76598-large_default/super-mario-bros-cartucho-nes.jpg"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                        alt="Pokemon Red">
-                    <div
-                        class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold">
-                        GB</div>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                        <button class="w-full bg-indigo-600 py-3 rounded-xl font-bold shadow-xl">Añadir al
-                            Carrito</button>
-                    </div>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="https://m.media-amazon.com/images/I/9199N0-4ZOL._AC_SL1500_.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">GB</div>
                 </div>
-                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition">Pokémon Rojo (Cartucho)</h3>
-                <p class="text-indigo-400 font-black text-xl">55.00€</p>
-                <p class="text-slate-500 text-xs mt-1 uppercase tracking-widest font-bold">Estado: Verificado</p>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">Pokémon Rojo</h3>
+                <p class="text-indigo-400 font-black text-2xl">55.00€</p>
             </div>
 
             <div class="group cursor-pointer">
-                <div
-                    class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 shadow-lg border border-slate-800 transition group-hover:border-indigo-500/50">
-                    <img src="https://media3.gameplaystores.es/76598-large_default/super-mario-bros-cartucho-nes.jpg"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                        alt="Metal Gear">
-                    <div
-                        class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold">
-                        PS1</div>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                        <button class="w-full bg-indigo-600 py-3 rounded-xl font-bold shadow-xl">Añadir al
-                            Carrito</button>
-                    </div>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="https://m.media-amazon.com/images/I/81L67Yg4-3L._AC_SL1500_.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">PS1</div>
                 </div>
-                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition">Metal Gear Solid</h3>
-                <p class="text-indigo-400 font-black text-xl">65.00€</p>
-                <p class="text-slate-500 text-xs mt-1 uppercase tracking-widest font-bold">Estado: Con Manual</p>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">Metal Gear Solid</h3>
+                <p class="text-indigo-400 font-black text-2xl">65.00€</p>
+            </div>
+
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="https://m.media-amazon.com/images/I/8158Gj-W3-L._AC_SL1500_.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">GEN</div>
+                </div>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">Sonic the Hedgehog</h3>
+                <p class="text-indigo-400 font-black text-2xl">30.00€</p>
+            </div>
+
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="https://m.media-amazon.com/images/I/51r5f8p7o8L._AC_SL1000_.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">NES</div>
+                </div>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">Metroid</h3>
+                <p class="text-indigo-400 font-black text-2xl">120.00€</p>
+            </div>
+
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="https://m.media-amazon.com/images/I/81+5W8iFpHL._AC_SL1500_.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">N64</div>
+                </div>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">Mario Kart 64</h3>
+                <p class="text-indigo-400 font-black text-2xl">50.00€</p>
+            </div>
+
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="https://m.media-amazon.com/images/I/510R2R1N56L._AC_.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">PS1</div>
+                </div>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">Final Fantasy VII</h3>
+                <p class="text-indigo-400 font-black text-2xl">95.00€</p>
             </div>
 
         </div>
@@ -179,20 +163,48 @@
         <p class="text-sm">© 2026 RetroWorld Store - Hecho para coleccionistas.</p>
     </footer>
     <script>
+        const SERVERIP = "127.0.0.1" //10.1.192.78
+
+        fetchGames()
+
         //Como usamos el contenido de este fetch para montar la pantalla con todos los juegos disponibles?
-        async function fetchGames(e) {
-            e.preventDefault();
+        async function fetchGames() {
             console.log("Haciendo fetch de endpoint de juegos")
             const response = await fetch(
-                `http://10.1.192.78:8080/juegos`
+                `http://${SERVERIP}:8080/juegos`
             )
             const data = await response.json();
-            console.log("Respuesta juegos:", data);
+            console.log(data)
+
+            buildGameCards(data)
         }
-        //Lanzar fetch de juegos cada 2 segundos
-        setInterval(() => {
-            fetchGames();
-        }, 2000);
+
+        async function buildGameCards(juegos) {
+            const target = document.getElementById("escaparate")
+
+            if (juegos.length > 4) {
+                const cap = 4
+            } else {
+                cap = juegos.length
+            }
+
+            for (let index = 0; index < cap; index++) {
+                game = juegos[index]
+                console.log("montando carta de juego ",index+1)
+                target.insertAdjacentHTML('beforeend',
+                `
+                <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                    <img src="${game.imagen}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
+                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">GEN</div>
+                </div>
+                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">${game.nombre}</h3>
+                <p class="text-indigo-400 font-black text-2xl">${game.precio}</p>
+                </div>
+                `
+                )
+            }
+        }
     </script>
 </body>
 
