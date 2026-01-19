@@ -82,7 +82,7 @@
             <a href="Tienda.html" class="text-indigo-400 font-bold hover:underline italic">Ver catálogo completo →</a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="escaparate">
 
             <div class="group cursor-pointer">
                 <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
@@ -196,10 +196,9 @@
                 <div class="group cursor-pointer">
                 <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
                     <img src="${game.imagen}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
-                    <div class="absolute top-3 right-3 bg-indigo-600 px-3 py-1 rounded-lg text-xs font-bold">GEN</div>
                 </div>
                 <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">${game.nombre}</h3>
-                <p class="text-indigo-400 font-black text-2xl">${game.precio}</p>
+                <p class="text-indigo-400 font-black text-2xl">${game.precio}€</p>
                 </div>
                 `
                 )
