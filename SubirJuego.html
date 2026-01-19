@@ -79,24 +79,24 @@
                 <p class="text-slate-500 text-xs uppercase font-bold tracking-[0.2em]">Sincronizando con tabla: JUEGOS</p>
             </div>
 
-            <form action="/juegos/guardar" method="POST" class="space-y-6">
+            <form action="#" method="POST" class="space-y-6" id="uploadForm">
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="md:col-span-2">
                         <label class="block text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-3 ml-1">Nombre del Videojuego</label>
-                        <input type="text" name="nombre" required maxlength="150" placeholder="Ej: Metal Gear Solid" 
+                        <input type="text" name="nombre" required maxlength="150" placeholder="Ej: Metal Gear Solid" id="title"
                             class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 transition text-white">
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-3 ml-1">Precio de Venta (€)</label>
-                        <input type="number" name="precio" step="0.01" required placeholder="0.00" 
+                        <input type="number" name="precio" step="0.01" required placeholder="0.00" id="price"
                             class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 transition text-white text-lg font-black">
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-3 ml-1">Clave de Producto (Única)</label>
-                        <input type="text" name="clave" required placeholder="XYZ-123-ABC" 
+                        <input type="text" name="clave" required placeholder="XYZ-123-ABC" id="key"
                             class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 transition text-white font-mono uppercase">
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <i class="fa-solid fa-link text-slate-500 text-sm"></i>
                         </div>
-                        <input type="text" name="imagen" maxlength="255" placeholder="https://dominio.com/foto.jpg" 
+                        <input type="text" name="imagen" maxlength="255" placeholder="https://dominio.com/foto.jpg" id="imgref"
                             class="w-full bg-slate-900/50 border border-slate-700 p-4 pl-12 rounded-xl focus:outline-none focus:border-indigo-500 transition text-white text-sm">
                     </div>
                 </div>
@@ -131,6 +131,37 @@
     <footer class="py-8 text-center text-slate-700 text-[9px] retro-title">
         JDBC_INSERT_PROTOCOL // TABLE: JUEGOS
     </footer>
+
+    <script>
+        const SERVERIP = localhost //10.1.192.78
+
+        //@GetMapping("/subirJuego/{idVendedor}/{nombre}/{imagen}/{precio}/{clave}")
+        document.getElementById("uploadForm").addEventListener("submit", async function (params) {
+            params.preventDefault()
+
+            const usrID = localStorage.getItem("usrID")
+            const title = document.getElementById("title").value
+            const price = document.getElementById("price").value
+            const key = document.getElementById("key").value
+            const img = document.getElementById("imgref").value
+
+            console.log("Intento de subir juego, llamando a la api...")
+            const response = await fetch(
+            `http://${SERVERIP}:8080/subirJuego?idVendedor=${usrID}&nombre=${title}&precio=${price}&clave=${key}&imagen=${img}`
+            )
+
+            const data = await response.json()
+            console.log("Respuesta login:", data)
+
+            if (data == null) {
+                //Programar una respuesta visual sobre el fallo
+                console.log("juego no subido")
+            } else {
+                //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
+                window.location.href = "Home.html"
+            }
+        })
+    </script>
 
 </body>
 </html>

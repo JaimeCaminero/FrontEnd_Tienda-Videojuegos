@@ -125,13 +125,13 @@
                 const data = await response.json()
                 console.log("Respuesta login:", data)
 
-                if (data == null) {
+                if (data == false) {
                     //Programar una respuesta visual sobre el fallo
                     console.log("registro fallido")
                 } else {
                     //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
-                    localStorage.setItem("usrID=", data.id)
-                    window.location.href = "FrontEnd.html"
+                    localStorage.setItem("usrID", data.id)
+                    window.location.href = "Home.html"
                 }
             } else {
                 //Programar respuesta visual sobre el fallo

@@ -105,7 +105,8 @@
                 console.log("login fallido")
             } else {
                 //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
-                window.location.href = "FrontEnd.html"
+                localStorage.setItem("usrID", data.id)
+                window.location.href = "Home.html"
             }
         })
     </script>
