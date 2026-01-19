@@ -107,6 +107,8 @@
         Level 1 Player Registration
     </footer>
     <script>
+        const SERVERIP = localhost //10.1.192.78
+
         document.getElementById("registerForm").addEventListener("submit", async function (params) {
             params.preventDefault()
 
@@ -117,7 +119,7 @@
             if (pwd == pwd2) {
                 console.log("Intento de hacer registro recibido, llamando a la api...")
                 const response = await fetch(
-                    `http://10.1.192.78:8080/registro?nombre=${mail}&pwd=${pwd}`
+                    `http://${SERVERIP}:8080/registro?nombre=${mail}&pwd=${pwd}`
                 )
 
                 const data = await response.json()
@@ -128,6 +130,7 @@
                     console.log("registro fallido")
                 } else {
                     //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
+                    localStorage.setItem("usrID=", data.id)
                     window.location.href = "FrontEnd.html"
                 }
             } else {
