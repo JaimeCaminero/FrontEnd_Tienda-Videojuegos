@@ -116,8 +116,8 @@
     </footer>
 
     <script>
-        const SERVERIP = "127.0.0.1";
-        const USER_ID = 1; 
+        const SERVERIP = "10.1.192.94";
+        const USER_ID = localStorage.usrID; 
 
         window.onload = actualizarSaldoVisual;
 
@@ -155,8 +155,8 @@
                 const resultado = await response.json(); 
 
                 if (resultado === true) {
-                    alert("Se han añadido los fondos");
                     input.value = ""; 
+                    alert("Se han añadido los fondos");
                     actualizarSaldoVisual(); 
                 } else {
                     alert("Algo ha fallado");
