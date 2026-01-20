@@ -82,7 +82,7 @@
     </footer>
 
     <script>
-        const SERVERIP = "10.1.192.94"
+        const SERVERIP = "localhost"
 
         //@GetMapping("/login/{nombre}/{pwd}")
         //Miramos al formulario y atendemos a su boton
@@ -97,8 +97,9 @@
             `http://${SERVERIP}:8080/login/${name}/${pwd}`
             )
 
-            const data = await response.json()
-            console.log("Respuesta login:", data)
+            try {
+                const data = await response.json()
+                console.log("Respuesta login:", data)
 
             if (data == null) {
                 //Programar una respuesta visual sobre el fallo
@@ -109,6 +110,10 @@
                 localStorage.setItem("username",data.nombre)
                 window.location.href = localStorage.getItem("RETROGAMES-lastPage")
             }
+            } catch {
+                alert("Nombre o contraseña no existente")
+            }
+            
         })
     </script>
 </body>
