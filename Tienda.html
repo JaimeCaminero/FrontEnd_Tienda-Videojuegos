@@ -51,9 +51,8 @@
 
             <div class="flex items-center gap-6">
                 <div class="relative">
-                    <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400"></i>
-                    <span
-                        class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold">3</span>
+                    <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400" onclick="goToCart()"></i>
+                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold" id="itemsInCart">3</span>
                 </div>
 
                 <div class="flex items-center gap-6">
@@ -156,6 +155,11 @@
         function goToLogin() {
             localStorage.setItem("RETROGAMES-lastPage", "Tienda.html")
             window.location.href = "Login.html"
+        }
+
+        function goToCart() {
+            if (localStorage.getItem("usrID") != null)
+                window.location.href = "Carrito.html"
         }
 
         function cerrarSesion() {

@@ -51,12 +51,13 @@
 
             <div class="flex items-center gap-6">
                 <div class="relative">
-                    <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400"></i>
-                    <span
-                        class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold">3</span>
+                    <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400" onclick="goToCart()"></i>
+                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold" id="itemsInCart">3</span>
                 </div>
 
                 <div class="flex items-center gap-6">
+                    
+
                     <button style="display:none" id="btnLogin" onclick="goToLogin()"
                         class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-full font-bold text-sm transition shadow-[0_0_15px_rgba(79,70,229,0.4)]">
                         <i class="fa-solid fa-user mr-2"></i> LOGIN
@@ -169,6 +170,7 @@
     <script>
         const SERVERIP = "10.1.192.94"
         updateUsrButton()
+        
         //@GetMapping("/subirJuego/{idVendedor}/{nombre}/{imagen}/{precio}/{clave}")
         document.getElementById("uploadForm").addEventListener("submit", async function (params) {
             params.preventDefault()
@@ -204,6 +206,11 @@
         function goToLogin() {
             localStorage.setItem("RETROGAMES-lastPage", "SubirJuego.html")
             window.location.href = "Login.html"
+        }
+
+        function goToCart() {
+            if (localStorage.getItem("usrID") != null)
+                window.location.href = "Carrito.html"
         }
 
         function cerrarSesion() {
