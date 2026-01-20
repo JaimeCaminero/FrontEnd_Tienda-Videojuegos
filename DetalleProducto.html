@@ -47,37 +47,42 @@
 
             <div class="flex items-center gap-6">
                 <div class="relative">
-                    <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400 text-xl transition"></i>
-                    <span
-                        class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold">3</span>
+                    <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400" onclick="goToCart()"></i>
+                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold" id="itemsInCart">3</span>
                 </div>
 
-                <div class="relative group">
-                    <button
-                        class="flex items-center gap-2 focus:outline-none border-2 border-transparent group-hover:border-indigo-500/50 rounded-full transition p-1 bg-indigo-500/10">
-                        <img src="https://ui-avatars.com/api/?name=Jaime&background=4f46e5&color=fff"
-                            class="w-9 h-9 rounded-full shadow-lg" alt="Avatar">
-                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+                <div class="flex items-center gap-6">
+                    <button style="display:none" id="btnLogin" onclick="goToLogin()"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-full font-bold text-sm transition shadow-[0_0_15px_rgba(79,70,229,0.4)]">
+                        <i class="fa-solid fa-user mr-2"></i> LOGIN
                     </button>
+                    <div class="relative group">
+                        <button style="display:none" id="btnUsr"
+                            class="flex items-center gap-2 focus:outline-none border-2 border-transparent group-hover:border-indigo-500/50 rounded-full transition p-1">
+                            <img src="https://ui-avatars.com/api/?name=Jaime&background=4f46e5&color=fff" id="avatar"
+                                class="w-9 h-9 rounded-full shadow-lg" alt="Avatar">
+                        </button>
 
-                    <div
-                        class="absolute right-0 mt-4 w-56 bg-[#0f172a] border border-slate-700 rounded-xl shadow-2xl overflow-hidden hidden group-hover:block transform transition-all duration-200 origin-top-right">
-                        <div class="px-5 py-4 border-b border-slate-700 bg-slate-800/50">
-                            <p class="font-bold text-white">Hola, <span class="text-indigo-400">Jaime</span></p>
-                        </div>
-                        <div class="py-2">
-                            <a href="MisJuegos.html"
-                                class="block px-5 py-3 text-sm text-slate-300 hover:bg-indigo-600 hover:text-white transition flex items-center gap-3">
-                                <i class="fa-solid fa-box-open"></i> Mis Juegos
-                            </a>
-                            <a href="Wallet.html" class="block px-5 py-3 text-sm text-indigo-400 bg-indigo-500/10 transition flex items-center gap-3">
-                                <i class="fa-solid fa-wallet"></i> Mi Wallet
-                            </a>
-                            <div class="border-t border-slate-700 my-1"></div>
-                            <a href="Login.html"
-                                class="block px-5 py-3 text-sm text-rose-400 hover:bg-rose-600 hover:text-white transition flex items-center gap-3">
-                                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
-                            </a>
+                        <div id = "usrContent"
+                            class="absolute right-0 mt-4 w-56 bg-[#0f172a] border border-slate-700 rounded-xl shadow-2xl overflow-hidden hidden group-hover:block">
+                            <div class="px-5 py-4 border-b border-slate-700 bg-slate-800/50">
+                                <p class="font-bold text-white">Hola, <span class="text-indigo-400"
+                                        id="username">Jaime</span></p>
+                            </div>
+                            <div class="py-2">
+                                <a href="MisJuegos.html"
+                                    class="block px-5 py-3 text-sm text-slate-300 hover:bg-indigo-600 hover:text-white transition flex items-center gap-3">
+                                    <i class="fa-solid fa-box-open"></i> Mis Juegos
+                                </a>
+                                <a href="Wallet.html"
+                                    class="block px-5 py-3 text-sm text-indigo-400 bg-indigo-500/10 transition flex items-center gap-3">
+                                    <i class="fa-solid fa-wallet"></i> Mi Wallet
+                                </a>
+                                <a href="#" onclick="cerrarSesion()"
+                                    class="block px-5 py-3 text-sm text-rose-400 hover:bg-rose-600 hover:text-white transition flex items-center gap-3">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -96,29 +101,21 @@
         <div class="flex flex-col lg:flex-row gap-16">
             <div class="w-full lg:w-1/2">
                 <div class="glass p-4 rounded-3xl border border-indigo-500/20 shadow-2xl">
-                    <img src="https://m.media-amazon.com/images/I/81vSOnG65PL._AC_SL1500_.jpg"
+                    <img src="https://m.media-amazon.com/images/I/81vSOnG65PL._AC_SL1500_.jpg" id = "img"
                         class="w-full h-[500px] object-contain rounded-2xl" alt="Imagen del juego">
                 </div>
             </div>
 
             <div class="w-full lg:w-1/2 flex flex-col">
-                <div class="mb-6">
-                    <span
-                        class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] px-3 py-1 rounded-full font-bold uppercase italic">
-                        <i class="fa-solid fa-shield-check mr-1"></i> Aceptado en Sistema
-                    </span>
-                </div>
-
-                <h1 class="text-5xl font-black mb-2 text-white leading-none uppercase italic tracking-tighter">
-                    THE LEGEND OF ZELDA: <br>
-                    <span class="text-indigo-500 font-black">OCARINA OF TIME</span>
+                <h1 class="text-5xl font-black mb-2 text-white leading-none uppercase italic tracking-tighter" id="title">
+                    The legend of zelda
                 </h1>
 
                 <div
                     class="glass p-6 rounded-2xl border-l-4 border-l-indigo-500 mb-10 flex justify-between items-center">
                     <div>
                         <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Precio Final</p>
-                        <p class="text-4xl font-black text-white">89.95€</p>
+                        <p class="text-4xl font-black text-white" id="price">89.95€</p>
                     </div>
                 </div>
 
@@ -137,11 +134,11 @@
                 <div class="grid grid-cols-2 gap-4 border-t border-slate-800 pt-8">
                     <div>
                         <p class="text-[9px] text-indigo-400 font-bold uppercase mb-1">Vendedor</p>
-                        <p class="text-sm font-bold">Usuario</p>
+                        <p class="text-sm font-bold" id="seller">Usuario</p>
                     </div>
                     <div>
                         <p class="text-[9px] text-indigo-400 font-bold uppercase mb-1">Estado</p>
-                        <p class="text-sm font-bold text-emerald-400">DISPONIBLE</p>
+                        <p class="text-sm font-bold text-emerald-400" id="status">DISPONIBLE</p>
                     </div>
                 </div>
             </div>
@@ -152,10 +149,43 @@
         RETROWORLD SECURE TRANSACTION MODULE
     </footer>
     <script>
+        const SERVERIP = "localhost"
+        const urlParams = new URLSearchParams(window.location.search)
 
+        available = true
+
+        buildGameDetails(urlParams.get("id"))
+        updateUsrButton()
+
+        async function buildGameDetails(id) {
+            console.log("Haciendo fetch del juego con id",id)
+            const response = await fetch(
+                `http://${SERVERIP}:8080/datosJuego/${id}`
+            )
+            const gameData = await response.json()
+            //console.log("Respuesta", gameData)
+
+            document.getElementById("title").innerHTML = gameData.nombre
+            document.getElementById("img").src = decodeURI(gameData.imagen.replaceAll("🗿","/"))
+            document.getElementById("price").innerHTML = gameData.precio + "€"
+            const status = document.getElementById("status")
+            
+            if (gameData.comprador_id == 0) {
+                status.innerHTML = "DISPONIBLE"
+                available = true
+            } else {
+                status.innerHTML = "NO DISPONIBLE"
+                status.style = "color: red"
+                available = false
+            }
+
+            const response2 = await fetch(`http://${SERVERIP}:8080/verUsuario/${gameData.vendedor_id}`)
+            const sellerName = await response2.text()
+            
+            document.getElementById("seller").innerHTML = sellerName
+        }
 
         //Manejo de cookies encontrado en https://www.w3schools.com/js/js_cookies.asp
-        //Guardamos el carrito como una cookie
         function setCookie(value, exdays = 1) {
             const d = new Date();
             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -180,6 +210,38 @@
         }
 
 
+        function goToLogin() {
+            localStorage.setItem("RETROGAMES-lastPage", "Tienda.html")
+            window.location.href = "Login.html"
+        }
+
+        function goToCart() {
+            if (localStorage.getItem("usrID") != null)
+                window.location.href = "Carrito.html"
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem("usrID")
+            localStorage.removeItem("username")
+            updateUsrButton()
+        }
+
+        function updateUsrButton() {
+            if (localStorage.getItem("usrID") == null) {
+                document.getElementById("btnLogin").style.display = "block"
+                document.getElementById("btnUsr").style.display = "none"
+                document.getElementById("usrContent").style.display = "none"
+            } else {
+                document.getElementById("avatar").src = `https://ui-avatars.com/api/?name=${localStorage.getItem("username")}&background=4f46e5&color=fff`
+                document.getElementById("username").innerHTML = localStorage.getItem("username")
+                document.getElementById("btnLogin").style.display = "none"
+                document.getElementById("btnUsr").style.display = "block"
+            }
+        }
+
+        function openGameDetails(gameID) {
+            window.location.href = `DetalleProducto.html?id=${gameID}`
+        }
     </script>
 </body>
 

@@ -123,7 +123,7 @@
         <p class="text-sm">© 2026 RetroWorld Store - Hecho para coleccionistas.</p>
     </footer>
     <script>
-        const SERVERIP = "10.1.192.94"
+        const SERVERIP = "localhost"//"10.1.192.94"
 
         fetchGames()
         updateUsrButton()
@@ -156,7 +156,7 @@
                 console.log("montando carta de juego ", index + 1)
                 target.insertAdjacentHTML('beforeend',
                     `
-                <div class="group cursor-pointer">
+                <div class="group cursor-pointer" onclick="openGameDetails(${game.id})">
                 <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
                     <img src="${decodeURI(game.imagen.replaceAll("🗿","/"))}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
                 </div>
@@ -195,6 +195,10 @@
                 document.getElementById("btnLogin").style.display = "none"
                 document.getElementById("btnUsr").style.display = "block"
             }
+        }
+
+        function openGameDetails(gameID) {
+            window.location.href = `DetalleProducto.html?id=${gameID}`
         }
     </script>
 </body>
