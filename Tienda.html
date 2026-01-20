@@ -143,7 +143,7 @@
                     `
                 <div class="group cursor-pointer">
                 <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
-                    <img src="${game.imagen}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
+                    <img src="${decodeURI(game.imagen.replaceAll("🗿","/"))}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
                 </div>
                 <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">${game.nombre}</h3>
                 <p class="text-indigo-400 font-black text-2xl">${game.precio}€</p>

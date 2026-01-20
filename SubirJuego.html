@@ -172,12 +172,14 @@
         //@GetMapping("/subirJuego/{idVendedor}/{nombre}/{imagen}/{precio}/{clave}")
         document.getElementById("uploadForm").addEventListener("submit", async function (params) {
             params.preventDefault()
-            if (localStorage.getItem(usrID) != null) {
+            if (localStorage.getItem("usrID") != null) {
                 const usrID = localStorage.getItem("usrID")
                 const title = document.getElementById("title").value
                 const price = document.getElementById("price").value
                 const key = document.getElementById("key").value
-                const img = document.getElementById("imgref").value
+                const img = encodeURI(document.getElementById("imgref").value).replaceAll("/","🗿")
+
+                console.log(img)
 
                 console.log("Intento de subir juego, llamando a la api...")
                 const response = await fetch(
@@ -187,9 +189,9 @@
                 const data = await response.json()
                 console.log("Respuesta login:", data)
 
-                if (data == null) {
+                if (data == null || data == false) {
                     //Programar una respuesta visual sobre el fallo
-                    alert("Error al llamar a la API")
+                    alert("Esta informacion tiene errores")
                 } else {
                     //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
                     window.location.href = "Home.html"
@@ -222,6 +224,7 @@
                 document.getElementById("btnUsr").style.display = "block"
             }
         }
+        
     </script>
 
 </body>
