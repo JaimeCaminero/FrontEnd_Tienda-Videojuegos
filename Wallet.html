@@ -151,10 +151,12 @@
         const SERVERIP = "localhost";
         const USER_ID = localStorage.usrID;
 
+        //Montaje de pagina
         window.onload = actualizarSaldoVisual;
         updateUsrButton()
         updateItemsInCart()
 
+        //Obtenemos el saldo del usuario registrado con el fetch y lo mostramos directamente
         async function actualizarSaldoVisual() {
             try {
                 const response = await fetch(`http://${SERVERIP}:8080/retrieveSaldo/${USER_ID}`);
@@ -166,32 +168,31 @@
                     display.innerText = `${saldoRecuperado.toFixed(2)}€`;
                 }
 
-            } catch (error) {
+            } catch {
                 console.error("Error al recuperar el saldo:");
             }
         }
 
-
+        
         async function addSaldo() {
             const input = document.getElementById("cantidad-input");
             const cantidad = parseFloat(input.value);
 
+            //Curacion de entrada
             if (!cantidad || cantidad <= 0) {
                 alert("Introduce una cantidad numérica válida y mayor a 0");
                 return;
             }
 
-            const urlAddSaldo = `http://${SERVERIP}:8080/addSaldo/${USER_ID}/${cantidad}`;
-
             try {
                 console.log("Recargando saldo");
-                const response = await fetch(urlAddSaldo);
+                const response = await fetch(`http://${SERVERIP}:8080/addSaldo/${USER_ID}/${cantidad}`);
                 const resultado = await response.json();
 
                 if (resultado === true) {
-                    input.value = "";
-                    alert("Se han añadido los fondos");
-                    actualizarSaldoVisual();
+                    input.value = ""; //Vaciamos el contenedor de la pagina
+                    alert("Se han añadido los fondos"); //Avisamos al usuario
+                    actualizarSaldoVisual(); //Actualizamos la pagina
                 } else {
                     alert("Algo ha fallado");
                 }
