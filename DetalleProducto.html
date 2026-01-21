@@ -196,6 +196,9 @@
         function goToCart() {
             if (localStorage.getItem("usrID") != null)
                 window.location.href = "Carrito.html"
+            else {
+                alert("Tienes que haber iniciado sesion para acceder al carro")
+            }
         }
 
         function cerrarSesion() {
@@ -235,14 +238,18 @@
         }
 
         function addToCart() {
-            const cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
-            console.log(cartContent)
-            if (!cartContent.includes(gameID)) {
-                cartContent.push(gameID)
-                localStorage.setItem("RETROWORLD-carro", JSON.stringify(cartContent))
-                updateCartLength()
-            } else {
-                alert("Ya tienes este juego en el carro")
+            try {
+                const cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+                console.log(cartContent)
+                if (!cartContent.includes(gameID)) {
+                    cartContent.push(gameID)
+                    localStorage.setItem("RETROWORLD-carro", JSON.stringify(cartContent))
+                    updateCartLength()
+                } else {
+                    alert("Ya tienes este juego en el carro")
+                }
+            } catch {
+                alert("Tienes que haber iniciado sesion para añadir al carro")
             }
         }
 
