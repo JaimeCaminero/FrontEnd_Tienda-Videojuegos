@@ -160,23 +160,25 @@
         const SERVERIP = "localhost"
         var precioTotal
 
+        //Preparamos la pagina
         updateUsrButton()
         updateCart()
 
+        //Llamamos a la API para obtener info de todos los juegos guardados en el carro
         function updateCart() {
             const cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
             console.log("Cargando carrito, IDs:", cart)
             const cartDump = document.getElementById("cart")
-            cartDump.innerHTML = ""
-            precioTotal = 0
+            cartDump.innerHTML = "" //Vaciamos el espacio visual
+            precioTotal = 0 //Reseteamos el precio por pantalla
 
-            cart.forEach(async (gameID) => {
+            cart.forEach(async (gameID) => { //funcion flecha asincrona para poder hacer un fetch dentro
                 const response = await fetch(
                     `http://${SERVERIP}:8080/datosJuego/${gameID}`
                 )
                 const gameData = await response.json()
 
-                cartDump.insertAdjacentHTML("beforeend",
+                cartDump.insertAdjacentHTML("beforeend", //Montamos la tarjeta del juego
                     `
                     <div class="item-row p-6 flex items-center justify-between border-b border-slate-800/50 transition">
                         <div class="flex items-center gap-5">
@@ -193,33 +195,38 @@
                     `
                 )
 
-                precioTotal += gameData.precio
+                precioTotal += gameData.precio //Aumentamos el precio total cada iteracion
                 const subtotal = document.getElementById("subtotal").innerHTML = precioTotal.toFixed(2) + "€"
                 const total = document.getElementById("total").innerHTML = precioTotal.toFixed(2) + "€"
+                
             })
-
+            //Debido a que el foreach es asincrono, cualquier cosa escrita aquí, despues de el, se ejecuta sin esperar a que termine.
+            //Por ello actualizamos el precio total a cada iteracion
         }
 
+        //Funcion que todas las cartas llaman con su texto de eliminar onclick
         function removeFromCart(id) {
             let cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
 
             console.log("Eliminando juego con id", id)
 
             var index = cart.indexOf(id);
-            console.log(index)
+            
             if (index > -1) {
-                cart.splice(index, 1);
+                //Los arrays de JS no tienen metodo de eliminar objetos especificos, se elimina haciendo un splice, que permite arrancar "segmentos"
+                //splice(indice de inicio del segmento, longitudo del segmento)
+                cart.splice(index, 1); 
                 localStorage.setItem("RETROWORLD-carro", JSON.stringify(cart))
                 updateCart()
             }
         }
 
-
+        //La llamada al endpoint mas grande
         async function buyCart() {
             const cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
             const userID = localStorage.getItem("usrID")
 
-            if (userID != null) {
+            if (userID != null) { //Nos aseguramos de que hay usuario y contenido en el carro
                 if (cart.length > 0) {
                     console.log("Intentando comprar carro...", cart)
                     const response = await fetch(
@@ -227,39 +234,39 @@
                     )
                     try {
                         const result = await response.json()
-
+                        //el resultado se resume a un booleano, el servidor no revela las causas del fallo
                         if (result == false) {
                             alert("Ha habido un error durante la compra")
                         } else {
                             alert("Gracias por tu compra, puedes ver el/los juego/s en tu inventario!")
 
-                            //Eliminamos del carro
+                            //Vaciamos el carro actual
                             localStorage.setItem("RETROWORLD-carro", "[]")
                             updateCart()
                         }
-                    } catch {
+                    } catch { //Por si acaso
                         alert("Ha habido un error durante la compra")
                     }
                 } else {
                     alert("No tienes ningun producto en tu carrito")
                 }
-            } else {
+            } else { //Tecnicamente inalcanzable?
                 alert("Tienes que haber iniciado sesion para comprar")
 
             }
         }
 
-        function goToLogin() {
+        function goToLogin() { //Tecnicamente inalcanzabe?
             localStorage.setItem("RETROGAMES-lastPage", "Home.html")
             window.location.href = "Login.html"
         }
 
-        function cerrarSesion() {
+        function cerrarSesion() { 
             localStorage.removeItem("usrID")
             localStorage.removeItem("username")
             localStorage.removeItem("RETROWORLD-carro")
+            window.location.href = "Home.html" //Pagina inaccesible para usuarios sin iniciar sesion
             updateUsrButton()
-            window.location.href = "Home.html"
         }
 
         function updateUsrButton() {
