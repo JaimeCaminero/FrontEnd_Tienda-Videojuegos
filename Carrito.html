@@ -228,10 +228,10 @@
                     try {
                         const result = await response.json()
 
-                        if (result == null) {
+                        if (result == false) {
                             alert("Ha habido un error durante la compra")
                         } else {
-                            console.log("Aqui tienes tu claves de juego, no las pierdas!", result)
+                            alert("Gracias por tu compra, puedes ver el/los juego/s en tu inventario!")
 
                             //Eliminamos del carro
                             localStorage.setItem("RETROWORLD-carro", "[]")
