@@ -153,13 +153,17 @@
     <script>
         const SERVERIP = "localhost"
         const urlParams = new URLSearchParams(window.location.search)
-        const gameID = urlParams.get("id")
+        const gameID = urlParams.get("id") //Rescatamos el parametro de esta pagina
+
+        //El juego podria dejar de estar disponible cuando le haces click, revisamos una vez mas cuando montamos los datos
         available = true
 
+        //Generacion de pagina
         buildGameDetails()
         updateUsrButton()
         updateItemsInCart()
 
+        //Funcion principal de esta pagina
         async function buildGameDetails() {
             console.log("Haciendo fetch del juego con id", gameID)
             const response = await fetch(
@@ -174,6 +178,7 @@
             const status = document.getElementById("status")
 
             if (gameData.comprador_id == 0) {
+                //Actualizamos la linea de estado al estado correcto
                 status.innerHTML = "DISPONIBLE"
                 available = true
             } else {
@@ -182,13 +187,68 @@
                 available = false
             }
 
+            //Buscamos al comprador y lo mostramos
             const response2 = await fetch(`http://${SERVERIP}:8080/verUsuario/${gameData.vendedor_id}`)
             const sellerName = await response2.text()
 
             document.getElementById("seller").innerHTML = sellerName
         }
 
-        function goToLogin() {
+        //Boton de añadir al carro
+        function addToCart() {
+            try {
+                //Primero hay que localizarlo y parsearlo
+                const cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+                //console.log(cartContent)
+                if (!cartContent.includes(gameID)) {
+                    cartContent.push(gameID) //lo añadimos al array
+                    localStorage.setItem("RETROWORLD-carro", JSON.stringify(cartContent)) // y reemplazamos la memoria
+                    updateItemsInCart()
+                } else {
+                    //Nuestros juegos son unicos, no pueden comprarse varias veces
+                    alert("Ya tienes este juego en el carro")
+                }
+            } catch {
+                alert("Tienes que haber iniciado sesion para añadir al carro")
+            }
+        }
+
+        //Boton que compra directamente
+        async function buyNow() {
+            const userID = localStorage.getItem("usrID")
+            if (userID != null) {
+                //Simula un carro de un solo objeto para hacer la llamada, por lo que almacenamos la ID en un array antes
+                let requestList = [gameID]
+                const response = await fetch( //El fetch solo acepta listas
+                    `http://${SERVERIP}:8080/comprarCarrito/${userID}/${requestList}`
+                )
+                const result = await response.json()
+
+                //el resultado se da en boolean
+                if (result == false) {
+                    //El servidor no revela la razon del fallo
+                    alert("Ha habido un error durante la compra")
+                } else {
+                    alert("Gracias por tu compra, puedes ver el/los juego/s en tu inventario!")
+
+                    //Y eliminamos el juego del carro si lo ha metido antes
+                    let cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+                    console.log("Eliminando juego con id del carro", gameID)
+                    var index = cart.indexOf(gameID);
+                    console.log(index)
+                    if (index > -1) {
+                        cart.splice(index, 1);
+                        localStorage.setItem("RETROWORLD-carro", JSON.stringify(cart))
+                    }
+                    //Con la compra completada, los detalles de ese juego concreto se vuelven inaccesibles
+                    window.location.href = "Home.html"
+                }
+            } else {
+                alert("Tienes que haber iniciado sesion para comprar")
+            }
+        }
+
+        function goToLogin() { //Deberia ser inaccesible
             localStorage.setItem("RETROGAMES-lastPage", "Tienda.html")
             window.location.href = "Login.html"
         }
@@ -219,52 +279,6 @@
                 document.getElementById("username").innerHTML = localStorage.getItem("username")
                 document.getElementById("btnLogin").style.display = "none"
                 document.getElementById("btnUsr").style.display = "block"
-            }
-        }
-
-        function addToCart() {
-            try {
-                const cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
-                console.log(cartContent)
-                if (!cartContent.includes(gameID)) {
-                    cartContent.push(gameID)
-                    localStorage.setItem("RETROWORLD-carro", JSON.stringify(cartContent))
-                    updateItemsInCart()
-                } else {
-                    alert("Ya tienes este juego en el carro")
-                }
-            } catch {
-                alert("Tienes que haber iniciado sesion para añadir al carro")
-            }
-        }
-
-        async function buyNow() {
-            const userID = localStorage.getItem("usrID")
-            if (userID != null) {
-                let requestList = [gameID]
-                const response = await fetch(
-                    `http://${SERVERIP}:8080/comprarCarrito/${userID}/${requestList}`
-                )
-                const result = await response.json()
-
-                if (result == false) {
-                    alert("Ha habido un error durante la compra")
-                } else {
-                    alert("Gracias por tu compra, puedes ver el/los juego/s en tu inventario!")
-
-                    //Eliminamos del carro si lo tiene
-                    let cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
-                    console.log("Eliminando juego con id del carro", gameID)
-                    var index = cart.indexOf(gameID);
-                    console.log(index)
-                    if (index > -1) {
-                        cart.splice(index, 1);
-                        localStorage.setItem("RETROWORLD-carro", JSON.stringify(cart))
-                    }
-                    window.location.href = "Home.html"
-                }
-            } else {
-                alert("Tienes que haber iniciado sesion para comprar")
             }
         }
 
