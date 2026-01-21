@@ -52,8 +52,8 @@
 
             <form action="#" class="space-y-4" id="registerForm">
                 <div>
-                    <label
-                        class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2 ml-1">Nombre de Usuario</label>
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2 ml-1">Nombre
+                        de Usuario</label>
                     <input type="text" placeholder="Jane Doe" id="txtName"
                         class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 transition text-white">
                 </div>
@@ -106,22 +106,25 @@
                     `http://${SERVERIP}:8080/registro/${name}/${pwd}`
                 )
 
-                const data = await response.json()
-                console.log("Respuesta login:", data)
 
-                if (data == false) {
-                    //Programar una respuesta visual sobre el fallo
-                    console.log("registro fallido")
-                } else {
-                    //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
-                    localStorage.setItem("username",data.nombre)
-                    localStorage.setItem("usrID", data.id)
-                    localStorage.setItem("RETROWORLD-carro","[]")
-                    window.location.href = localStorage.getItem("RETROGAMES-lastPage")
+                //Misma logica que el login
+                try {
+                    const data = await response.json()
+                    console.log("Respuesta login:", data)
+
+                    if (data == false) {
+                        alert("registro fallido")
+                    } else {
+                        //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
+                        localStorage.setItem("username", data.nombre)
+                        localStorage.setItem("usrID", data.id)
+                        localStorage.setItem("RETROWORLD-carro", "[]")
+                        window.location.href = localStorage.getItem("RETROGAMES-lastPage")
+                    }
+                } catch {
+                    alert("registro fallido")
                 }
             } else {
-                //Programar respuesta visual sobre el fallo
-                console.log("Las contraseñas no coinciden")
                 alert("Las contraseñas no coinciden")
             }
         })
