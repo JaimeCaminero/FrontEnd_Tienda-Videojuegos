@@ -208,14 +208,14 @@
                     `);
                     return;
                 }
-
-                if (game.revisado) {
-                    if (game.aceptado) {
-                        if (game.comprador_id != 0) {
-                            const response2 = await fetch(`http://${SERVERIP}:8080/verUsuario/${game.comprador_id}`)
-                            const sellerName = await response2.text();
-                            document.getElementById("soldGames").insertAdjacentHTML('beforeend',
-                                `
+                if (currentUserId != null && game.vendedor_id == currentUserId) {
+                    if (game.revisado) {
+                        if (game.aceptado) {
+                            if (game.comprador_id != 0) {
+                                const response2 = await fetch(`http://${SERVERIP}:8080/verUsuario/${game.comprador_id}`)
+                                const sellerName = await response2.text();
+                                document.getElementById("soldGames").insertAdjacentHTML('beforeend',
+                                    `
                                 <div
                                     class="glass p-4 rounded-2xl flex items-center justify-between border-l-8 border-blue-500 bg-blue-500/5 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                                     <div class="flex items-center gap-6">
@@ -239,9 +239,9 @@
                                     </div>
                                 </div>
                                 `)
-                        } else {
-                            document.getElementById("approvedGames").insertAdjacentHTML('beforeend',
-                                `
+                            } else {
+                                document.getElementById("approvedGames").insertAdjacentHTML('beforeend',
+                                    `
                                 <div
                                     class="glass p-4 rounded-2xl flex items-center justify-between border-l-8 border-emerald-500 bg-emerald-500/5 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                                     <div class="flex items-center gap-6">
@@ -265,11 +265,11 @@
                                     </div>
                                 </div>
                                 `)
-                        }
+                            }
 
-                    } else {
-                        document.getElementById("deniedGames").insertAdjacentHTML('beforeend',
-                            `
+                        } else {
+                            document.getElementById("deniedGames").insertAdjacentHTML('beforeend',
+                                `
                                 <div
                                     class="glass p-4 rounded-2xl flex items-center justify-between border-l-8 border-rose-900 bg-slate-900/50 opacity-60 grayscale hover:grayscale-0 transition duration-300">
                                     <div class="flex items-center gap-6">
@@ -288,11 +288,11 @@
                                     </div>
                                 </div>
                                 `
-                        )
-                    }
-                } else {
-                    document.getElementById("pendingGames").insertAdjacentHTML('beforeend',
-                        `<div
+                            )
+                        }
+                    } else {
+                        document.getElementById("pendingGames").insertAdjacentHTML('beforeend',
+                            `<div
                             class="glass p-4 rounded-2xl flex items-center justify-between border-l-8 border-amber-500 bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.1)]">
                             <div class="flex items-center gap-6">
                                 <img src="${img}"
@@ -311,7 +311,9 @@
                             </div>
                         </div>
                         `)
+                    }
                 }
+
             });
         }
 
@@ -358,7 +360,7 @@
             const cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
             const target = document.getElementById("itemsInCart")
             if (cart != null && cart.length > 0) {
-                target.innerHTML = cart.length 
+                target.innerHTML = cart.length
                 target.hidden = false
             } else {
                 target.hidden = true
