@@ -125,7 +125,7 @@
         <p class="text-sm">© 2026 RetroWorld Store - Hecho para coleccionistas.</p>
     </footer>
     <script>
-        const SERVERIP = "10.1.192.102"
+        const SERVERIP = "localhost"
 
         fetchGames()
         updateUsrButton()
@@ -152,7 +152,8 @@
 
         function buildGameCards(juegos, cap) {
             const target = document.getElementById("escaparate")
-
+            target.innerHTML = ""
+            
             for (let index = 0; index < cap; index++) {
                 game = juegos[index]
                 if (game.vendedor_id != localStorage.getItem("usrID")) {

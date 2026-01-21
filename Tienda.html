@@ -113,7 +113,7 @@
     </footer>
 
     <script>
-        const SERVERIP = "10.1.192.102" //10.1.192.78
+        const SERVERIP = "localhost"
 
         fetchGames()
         updateUsrButton()
@@ -134,7 +134,8 @@
 
         async function buildGameCards(juegos, cap) {
             const target = document.getElementById("escaparate")
-
+            target.innerHTML = ""
+            
             for (let index = 0; index < cap; index++) {
                 game = juegos[index]
                 console.log("montando carta de juego ", index + 1)
