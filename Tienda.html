@@ -116,11 +116,12 @@
     <script>
         const SERVERIP = "localhost"
 
+        //Montaje de pagina
         fetchGames()
         updateUsrButton()
         updateItemsInCart()
 
-        //Como usamos el contenido de este fetch para montar la pantalla con todos los juegos disponibles?
+        //Montamos las tarjetas del mismo modo que en la pagina de inicio
         async function fetchGames() {
             console.log("Haciendo fetch de endpoint de juegos")
             const response = await fetch(
@@ -130,10 +131,11 @@
             console.log(data)
 
             if (data != null) {
-                buildGameCards(data, data.length)
+                buildGameCards(data, data.length) //Esta vez no ponemos un limite inferior
             }
         }
 
+        //Exactamente lo mismo
         async function buildGameCards(juegos, cap) {
             const target = document.getElementById("escaparate")
             target.innerHTML = ""
