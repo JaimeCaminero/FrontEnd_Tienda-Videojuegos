@@ -152,6 +152,7 @@
 
         window.onload = actualizarSaldoVisual;
         updateUsrButton()
+        updateItemsInCart()
 
         async function actualizarSaldoVisual() {
             try {
@@ -230,6 +231,17 @@
                 document.getElementById("username").innerHTML = localStorage.getItem("username")
                 document.getElementById("btnLogin").style.display = "none"
                 document.getElementById("btnUsr").style.display = "block"
+            }
+        }
+
+        function updateItemsInCart() {
+            const cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+            const target = document.getElementById("itemsInCart")
+            if (cart != null && cart.length > 0) {
+                target.innerHTML = cart.length 
+                target.hidden = false
+            } else {
+                target.hidden = true
             }
         }
     </script>

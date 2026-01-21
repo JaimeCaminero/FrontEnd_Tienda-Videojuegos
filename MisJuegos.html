@@ -165,6 +165,7 @@
 
         updateUsrButton()
         fetchAndBuildMySoldGames()
+        updateItemsInCart()
 
         async function fetchAndBuildMySoldGames() {
             console.log("Haciendo fetch de mis juegos")
@@ -335,8 +336,9 @@
         function cerrarSesion() {
             localStorage.removeItem("usrID")
             localStorage.removeItem("username")
-            updateUsrButton()
             window.location.href = "Home.html"
+            updateUsrButton()
+            updateItemsInCart()
         }
 
         function updateUsrButton() {
@@ -349,6 +351,17 @@
                 document.getElementById("username").innerHTML = localStorage.getItem("username")
                 document.getElementById("btnLogin").style.display = "none"
                 document.getElementById("btnUsr").style.display = "block"
+            }
+        }
+
+        function updateItemsInCart() {
+            const cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+            const target = document.getElementById("itemsInCart")
+            if (cart != null && cart.length > 0) {
+                target.innerHTML = cart.length 
+                target.hidden = false
+            } else {
+                target.hidden = true
             }
         }
     </script>

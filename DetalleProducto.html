@@ -158,7 +158,7 @@
 
         buildGameDetails()
         updateUsrButton()
-        updateCartLength()
+        updateItemsInCart()
 
         async function buildGameDetails() {
             console.log("Haciendo fetch del juego con id", gameID)
@@ -206,6 +206,7 @@
             localStorage.removeItem("username")
             localStorage.removeItem("RETROWORLD-carro")
             updateUsrButton()
+            updateItemsInCart()
         }
 
         function updateUsrButton() {
@@ -225,18 +226,6 @@
             window.location.href = `DetalleProducto.html?id=${gameID}`
         }
 
-        function updateCartLength() {
-            let cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
-            let target = document.getElementById("itemsInCart")
-
-            if (cartContent != null && cartContent.length != 0) {
-                target.innerHTML = cartContent.length
-            } else {
-                target.style.display = "none"
-            }
-
-        }
-
         function addToCart() {
             try {
                 const cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
@@ -244,7 +233,7 @@
                 if (!cartContent.includes(gameID)) {
                     cartContent.push(gameID)
                     localStorage.setItem("RETROWORLD-carro", JSON.stringify(cartContent))
-                    updateCartLength()
+                    updateItemsInCart()
                 } else {
                     alert("Ya tienes este juego en el carro")
                 }
@@ -278,6 +267,17 @@
                 }
             } else {
                 alert("Tienes que haber iniciado sesion para comprar")
+            }
+        }
+
+        function updateItemsInCart() {
+            const cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+            const target = document.getElementById("itemsInCart")
+            if (cart != null && cart.length > 0) {
+                target.innerHTML = cart.length 
+                target.hidden = false
+            } else {
+                target.hidden = true
             }
         }
     </script>

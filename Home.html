@@ -47,7 +47,7 @@
                 <div class="relative">
                     <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400" onclick="goToCart()"></i>
                     <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold"
-                        id="itemsInCart">3</span>
+                        id="itemsInCart" hidden>3</span>
                 </div>
 
                 <button style="display:none" id="btnLogin" onclick="goToLogin()"
@@ -129,6 +129,7 @@
 
         fetchGames()
         updateUsrButton()
+        updateItemsInCart()
 
         //Como usamos el contenido de este fetch para montar la pantalla con todos los juegos disponibles?
         async function fetchGames() {
@@ -193,6 +194,7 @@
             localStorage.removeItem("RETROWORLD-carro")
             fetchGames()
             updateUsrButton()
+            updateItemsInCart()
         }
 
         function updateUsrButton() {
@@ -205,6 +207,17 @@
                 document.getElementById("username").innerHTML = localStorage.getItem("username")
                 document.getElementById("btnLogin").style.display = "none"
                 document.getElementById("btnUsr").style.display = "block"
+            }
+        }
+
+        function updateItemsInCart() {
+            const cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+            const target = document.getElementById("itemsInCart")
+            if (cart != null && cart.length > 0) {
+                target.innerHTML = cart.length 
+                target.hidden = false
+            } else {
+                target.hidden = true
             }
         }
 
