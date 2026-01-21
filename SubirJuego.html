@@ -208,6 +208,9 @@
         function goToCart() {
             if (localStorage.getItem("usrID") != null)
                 window.location.href = "Carrito.html"
+            else {
+                alert("Tienes que haber iniciado sesion para acceder al carro")
+            }
         }
 
         function cerrarSesion() {
