@@ -170,7 +170,7 @@
 
             document.getElementById("title").innerHTML = gameData.nombre
             document.getElementById("img").src = decodeURI(gameData.imagen.replaceAll("🗿", "/"))
-            document.getElementById("price").innerHTML = gameData.precio + "€"
+            document.getElementById("price").innerHTML = (gameData.precio).toFixed(2) + "€"
             const status = document.getElementById("status")
 
             if (gameData.comprador_id == 0) {

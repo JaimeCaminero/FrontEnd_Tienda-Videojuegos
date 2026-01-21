@@ -166,7 +166,7 @@
                             <img src="${decodeURI(game.imagen.replaceAll("🗿", "/"))}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
                         </div>
                         <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">${game.nombre}</h3>
-                        <p class="text-indigo-400 font-black text-2xl">${game.precio}€</p>
+                        <p class="text-indigo-400 font-black text-2xl">${(game.precio).toFixed(2)}€</p>
                         </div>
                         `
                     )
