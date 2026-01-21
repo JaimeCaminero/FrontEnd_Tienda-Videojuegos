@@ -91,7 +91,7 @@
         Level 1 Player Registration
     </footer>
     <script>
-        const SERVERIP = "10.1.192.102"
+        const SERVERIP = "localhost"
 
         document.getElementById("registerForm").addEventListener("submit", async function (params) {
             params.preventDefault()
@@ -122,6 +122,7 @@
             } else {
                 //Programar respuesta visual sobre el fallo
                 console.log("Las contraseñas no coinciden")
+                alert("Las contraseñas no coinciden")
             }
         })
     </script>

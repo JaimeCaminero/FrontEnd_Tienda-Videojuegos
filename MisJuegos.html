@@ -308,7 +308,7 @@
 
             games.forEach(game => {
                 document.getElementById("boughtGames").insertAdjacentHTML('beforeend', `
-                        <div class="glass p-4 rounded-2xl flex items-center justify-between border-l-8 border-cyan-500 bg-cyan-500/5 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                        <div class="glass p-4 rounded-2xl flex items-center justify-between border-l-8 border-cyan-500 bg-cyan-500/5 shadow-[0_0_15px_rgba(6,182,212,0.1)] mb-4">
                             <div class="flex items-center gap-6">
                                 <img src="${decodeURI(game.imagen.replaceAll("🗿", "/"))}" class="w-14 h-20 object-cover rounded-lg shadow-lg border border-cyan-500/30">
                                 <div>
@@ -316,10 +316,11 @@
                                     <p class="text-xs font-mono text-cyan-400">STATUS: PROPIEDAD ADQUIRIDA</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4">
-                                <button class="bg-cyan-600 hover:bg-cyan-500 text-white px-5 py-2 rounded-xl font-bold text-[10px] uppercase transition flex items-center gap-2">
-                                    <i class="fa-solid fa-play"></i> Jugar ahora
-                                </button>
+                            <div class="flex flex-col items-end gap-2">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Código de Activación</span>
+                                <div class="bg-slate-900/80 border border-cyan-500/50 px-4 py-2 rounded-lg shadow-inner">
+                                    <code class="text-cyan-400 font-mono font-bold text-sm tracking-wider">${game.clave}</code>
+                                </div>
                             </div>
                         </div>
                     `);
