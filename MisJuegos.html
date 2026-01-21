@@ -311,7 +311,7 @@
                 `http://${SERVERIP}:8080/clavesJuegosComprados/${currentUserId}`
             )
             const IDs = await responseIDs.json()
-            console.log(IDs)
+            //console.log(IDs)
 
             games.forEach(game => {
                 document.getElementById("boughtGames").insertAdjacentHTML('beforeend', `
@@ -326,7 +326,7 @@
                             <div class="flex flex-col items-end gap-2">
                                 <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Código de Activación</span>
                                 <div class="bg-slate-900/80 border border-cyan-500/50 px-4 py-2 rounded-lg shadow-inner">
-                                    <code class="text-cyan-400 font-mono font-bold text-sm tracking-wider">${game.clave}</code>
+                                    <code class="text-cyan-400 font-mono font-bold text-sm tracking-wider">${IDs[game.id]}</code>
                                 </div>
                             </div>
                         </div>
