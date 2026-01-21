@@ -116,6 +116,7 @@
                     //Redirigir al usuario de vuelta a la pagina principal con su usuario loggeado
                     localStorage.setItem("username",data.nombre)
                     localStorage.setItem("usrID", data.id)
+                    localStorage.setItem("RETROWORLD-carro",[])
                     window.location.href = localStorage.getItem("RETROGAMES-lastPage")
                 }
             } else {

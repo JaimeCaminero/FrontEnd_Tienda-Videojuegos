@@ -46,7 +46,8 @@
             <div class="flex items-center gap-6">
                 <div class="relative">
                     <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400" onclick="goToCart()"></i>
-                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold" id="itemsInCart">3</span>
+                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold"
+                        id="itemsInCart">3</span>
                 </div>
 
                 <button style="display:none" id="btnLogin" onclick="goToLogin()"
@@ -56,14 +57,15 @@
                 <div class="relative group">
                     <button style="display:none" id="btnUsr"
                         class="flex items-center gap-2 focus:outline-none border-2 border-transparent group-hover:border-indigo-500/50 rounded-full transition p-1">
-                        <img src="https://ui-avatars.com/api/?name=Jaime&background=4f46e5&color=fff" id = "avatar"
+                        <img src="https://ui-avatars.com/api/?name=Jaime&background=4f46e5&color=fff" id="avatar"
                             class="w-9 h-9 rounded-full shadow-lg" alt="Avatar">
                     </button>
 
-                    <div id = "usrContent"
+                    <div id="usrContent"
                         class="absolute right-0 mt-4 w-56 bg-[#0f172a] border border-slate-700 rounded-xl shadow-2xl overflow-hidden hidden group-hover:block">
                         <div class="px-5 py-4 border-b border-slate-700 bg-slate-800/50">
-                            <p class="font-bold text-white">Hola, <span class="text-indigo-400" id ="username">Jaime</span></p>
+                            <p class="font-bold text-white">Hola, <span class="text-indigo-400"
+                                    id="username">Jaime</span></p>
                         </div>
                         <div class="py-2">
                             <a href="MisJuegos.html"
@@ -148,23 +150,26 @@
             }
         }
 
-        async function buildGameCards(juegos, cap) {
+        function buildGameCards(juegos, cap) {
             const target = document.getElementById("escaparate")
 
             for (let index = 0; index < cap; index++) {
                 game = juegos[index]
-                console.log("montando carta de juego ", index + 1)
-                target.insertAdjacentHTML('beforeend',
-                    `
-                <div class="group cursor-pointer" onclick="openGameDetails(${game.id})">
-                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
-                    <img src="${decodeURI(game.imagen.replaceAll("🗿","/"))}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
-                </div>
-                <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">${game.nombre}</h3>
-                <p class="text-indigo-400 font-black text-2xl">${game.precio}€</p>
-                </div>
-                `
-                )
+                if (game.vendedor_id != localStorage.getItem("usrID")) {
+                    console.log("montando carta de juego ", index + 1)
+                    target.insertAdjacentHTML('beforeend',
+                        `
+                        <div class="group cursor-pointer" onclick="openGameDetails(${game.id})">
+                        <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-4 border border-slate-800 transition group-hover:border-indigo-500/50">
+                            <img src="${decodeURI(game.imagen.replaceAll("🗿", "/"))}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${game.nombre}">
+                        </div>
+                        <h3 class="font-bold text-lg group-hover:text-indigo-400 transition italic uppercase">${game.nombre}</h3>
+                        <p class="text-indigo-400 font-black text-2xl">${game.precio}€</p>
+                        </div>
+                        `
+                    )
+                }
+
             }
         }
 
@@ -181,6 +186,8 @@
         function cerrarSesion() {
             localStorage.removeItem("usrID")
             localStorage.removeItem("username")
+            localStorage.removeItem("RETROWORLD-carro")
+            fetchGames()
             updateUsrButton()
         }
 

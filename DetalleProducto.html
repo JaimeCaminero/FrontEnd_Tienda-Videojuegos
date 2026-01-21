@@ -48,7 +48,8 @@
             <div class="flex items-center gap-6">
                 <div class="relative">
                     <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400" onclick="goToCart()"></i>
-                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold" id="itemsInCart">3</span>
+                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold"
+                        id="itemsInCart">3</span>
                 </div>
 
                 <div class="flex items-center gap-6">
@@ -63,7 +64,7 @@
                                 class="w-9 h-9 rounded-full shadow-lg" alt="Avatar">
                         </button>
 
-                        <div id = "usrContent"
+                        <div id="usrContent"
                             class="absolute right-0 mt-4 w-56 bg-[#0f172a] border border-slate-700 rounded-xl shadow-2xl overflow-hidden hidden group-hover:block">
                             <div class="px-5 py-4 border-b border-slate-700 bg-slate-800/50">
                                 <p class="font-bold text-white">Hola, <span class="text-indigo-400"
@@ -101,13 +102,14 @@
         <div class="flex flex-col lg:flex-row gap-16">
             <div class="w-full lg:w-1/2">
                 <div class="glass p-4 rounded-3xl border border-indigo-500/20 shadow-2xl">
-                    <img src="https://m.media-amazon.com/images/I/81vSOnG65PL._AC_SL1500_.jpg" id = "img"
+                    <img src="https://m.media-amazon.com/images/I/81vSOnG65PL._AC_SL1500_.jpg" id="img"
                         class="w-full h-[500px] object-contain rounded-2xl" alt="Imagen del juego">
                 </div>
             </div>
 
             <div class="w-full lg:w-1/2 flex flex-col">
-                <h1 class="text-5xl font-black mb-2 text-white leading-none uppercase italic tracking-tighter" id="title">
+                <h1 class="text-5xl font-black mb-2 text-white leading-none uppercase italic tracking-tighter"
+                    id="title">
                     The legend of zelda
                 </h1>
 
@@ -120,12 +122,12 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 mb-10">
-                    <button
+                    <button onclick="buyNow()"
                         class="flex-grow bg-white text-slate-900 font-black py-5 rounded-2xl transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 uppercase italic text-lg">
                         <i class="fa-solid fa-bolt"></i> COMPRAR AHORA
                     </button>
 
-                    <button
+                    <button onclick="addToCart()"
                         class="flex-grow bg-indigo-600 hover:bg-indigo-500 text-white font-black py-5 rounded-2xl transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(79,70,229,0.3)] flex items-center justify-center gap-3 uppercase text-lg">
                         <i class="fa-solid fa-cart-plus"></i> AL CARRITO
                     </button>
@@ -151,25 +153,26 @@
     <script>
         const SERVERIP = "localhost"
         const urlParams = new URLSearchParams(window.location.search)
-
+        const gameID = urlParams.get("id")
         available = true
 
-        buildGameDetails(urlParams.get("id"))
+        buildGameDetails()
         updateUsrButton()
+        updateCartLength()
 
-        async function buildGameDetails(id) {
-            console.log("Haciendo fetch del juego con id",id)
+        async function buildGameDetails() {
+            console.log("Haciendo fetch del juego con id", gameID)
             const response = await fetch(
-                `http://${SERVERIP}:8080/datosJuego/${id}`
+                `http://${SERVERIP}:8080/datosJuego/${gameID}`
             )
             const gameData = await response.json()
             //console.log("Respuesta", gameData)
 
             document.getElementById("title").innerHTML = gameData.nombre
-            document.getElementById("img").src = decodeURI(gameData.imagen.replaceAll("🗿","/"))
+            document.getElementById("img").src = decodeURI(gameData.imagen.replaceAll("🗿", "/"))
             document.getElementById("price").innerHTML = gameData.precio + "€"
             const status = document.getElementById("status")
-            
+
             if (gameData.comprador_id == 0) {
                 status.innerHTML = "DISPONIBLE"
                 available = true
@@ -181,34 +184,9 @@
 
             const response2 = await fetch(`http://${SERVERIP}:8080/verUsuario/${gameData.vendedor_id}`)
             const sellerName = await response2.text()
-            
+
             document.getElementById("seller").innerHTML = sellerName
         }
-
-        //Manejo de cookies encontrado en https://www.w3schools.com/js/js_cookies.asp
-        function setCookie(value, exdays = 1) {
-            const d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            let expires = "expires=" + d.toUTCString();
-
-            document.cookie = "RETROWORLD-carro=" + value + ";" + expires + ";path=/";
-        }
-        
-        function getCookie() {
-            let name = "RETROWORLD-carro=";
-            let ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
 
         function goToLogin() {
             localStorage.setItem("RETROGAMES-lastPage", "Tienda.html")
@@ -223,6 +201,7 @@
         function cerrarSesion() {
             localStorage.removeItem("usrID")
             localStorage.removeItem("username")
+            localStorage.removeItem("RETROWORLD-carro")
             updateUsrButton()
         }
 
@@ -239,8 +218,60 @@
             }
         }
 
-        function openGameDetails(gameID) {
+        function openGameDetails() {
             window.location.href = `DetalleProducto.html?id=${gameID}`
+        }
+
+        function updateCartLength() {
+            let cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+            let target = document.getElementById("itemsInCart")
+
+            if (cartContent != null && cartContent.length != 0) {
+                target.innerHTML = cartContent.length
+            } else {
+                target.style.display = "none"
+            }
+
+        }
+
+        function addToCart() {
+            const cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+            console.log(cartContent)
+            if (!cartContent.includes(gameID)) {
+                cartContent.push(gameID)
+                localStorage.setItem("RETROWORLD-carro", JSON.stringify(cartContent))
+                updateCartLength()
+            } else {
+                alert("Ya tienes este juego en el carro")
+            }
+        }
+
+        async function buyNow() {
+            const userID = localStorage.getItem("usrID")
+            if (userID != null) {
+                const response = await fetch(
+                    `http://${SERVERIP}:8080/comprarCarrito/${userID}/[${gameID}]`
+                )
+                const result = await response.json()
+
+                if (result == null) {
+                    alert("Ha habido un error durante la compra")
+                } else {
+                    console.log("Aqui tienes tu clave de juego, no la pierdas!", result)
+
+                    //Eliminamos del carro si lo tiene
+                    let cart = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
+                    console.log("Eliminando juego con id del carro", gameID)
+                    var index = cart.indexOf(gameID);
+                    console.log(index)
+                    if (index > -1) {
+                        cart.splice(index, 1);
+                        localStorage.setItem("RETROWORLD-carro", JSON.stringify(cart))
+                    }
+                }
+            } else {
+                alert("Tienes que haber iniciado sesion para comprar")
+            }
         }
     </script>
 </body>
