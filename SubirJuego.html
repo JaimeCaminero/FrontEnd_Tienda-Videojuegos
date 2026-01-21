@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RetroWorld - Registrar Juego</title>
+    <title>RetroGames - Registrar Juego</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -101,7 +101,7 @@
 
             <div class="mb-10 text-center">
                 <h1 class="retro-title text-sm text-indigo-400 mb-4 tracking-widest">REGISTRAR JUEGO</h1>
-                <p class="text-slate-500 text-xs uppercase font-bold tracking-[0.2em]">Sincronizando con tabla: JUEGOS
+                <p class="text-slate-500 text-xs uppercase font-bold tracking-[0.2em]">Por favor, introduce los siguientes campos
                 </p>
             </div>
 
@@ -116,21 +116,12 @@
                             id="title"
                             class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 transition text-white">
                     </div>
-
-                    <div>
+                    <div class="md:col-span-2">
                         <label
                             class="block text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-3 ml-1">Precio
                             de Venta (€)</label>
                         <input type="number" name="precio" step="0.01" required placeholder="0.00" id="price"
                             class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 transition text-white text-lg font-black">
-                    </div>
-
-                    <div>
-                        <label
-                            class="block text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-3 ml-1">Clave
-                            de Producto (Única)</label>
-                        <input type="text" name="clave" required placeholder="XYZ-123-ABC" id="key"
-                            class="w-full bg-slate-900/50 border border-slate-700 p-4 rounded-xl focus:outline-none focus:border-indigo-500 transition text-white font-mono uppercase">
                     </div>
                 </div>
 
@@ -168,7 +159,7 @@
     </footer>
 
     <script>
-        const SERVERIP = "10.1.192.94"
+        const SERVERIP = "10.1.192.102"
         updateUsrButton()
         
         //@GetMapping("/subirJuego/{idVendedor}/{nombre}/{imagen}/{precio}/{clave}")
@@ -178,18 +169,19 @@
                 const usrID = localStorage.getItem("usrID")
                 const title = document.getElementById("title").value
                 const price = document.getElementById("price").value
-                const key = document.getElementById("key").value
-                const img = encodeURI(document.getElementById("imgref").value).replaceAll("/","🗿")
+                const rawImg = document.getElementById("imgref").value;
+                const imgFixed = encodeURIComponent(rawImg.replaceAll("/", "🗿"));
+                const titleFixed = encodeURIComponent(title);
 
-                console.log(img)
+                console.log("Subiendo", title)
 
                 console.log("Intento de subir juego, llamando a la api...")
                 const response = await fetch(
-                    `http://${SERVERIP}:8080/subirJuego/${usrID}/${title}/${img}/${price}/${key}`
+                    `http://${SERVERIP}:8080/subirJuego/${usrID}/${titleFixed}/${imgFixed}/${price}`
                 )
 
                 const data = await response.json()
-                console.log("Respuesta login:", data)
+                console.log("Respuesta server:", data)
 
                 if (data == null || data == false) {
                     //Programar una respuesta visual sobre el fallo
