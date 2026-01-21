@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RetroWorld - Home</title>
+    <title>RetroGames - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -46,7 +46,7 @@
             <div class="flex items-center gap-6">
                 <div class="relative">
                     <i class="fa-solid fa-cart-shopping cursor-pointer hover:text-indigo-400" onclick="goToCart()"></i>
-                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold" id="itemsInCart">3</span>
+                    <span class="absolute -top-2 -right-2 bg-rose-500 text-[10px] px-1.5 rounded-full font-bold" id="itemsInCart">0</span>
                 </div>
 
                 <button style="display:none" id="btnLogin" onclick="goToLogin()"
@@ -123,7 +123,7 @@
         <p class="text-sm">© 2026 RetroWorld Store - Hecho para coleccionistas.</p>
     </footer>
     <script>
-        const SERVERIP = "localhost"//"10.1.192.94"
+        const SERVERIP = "10.1.192.102"
 
         fetchGames()
         updateUsrButton()
