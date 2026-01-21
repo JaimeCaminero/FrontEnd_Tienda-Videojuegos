@@ -306,6 +306,12 @@
             )
             const games = await response.json()
 
+            const responseIDs = await fetch(
+                `http://${SERVERIP}:8080/clavesJuegosComprados/${currentUserId}`
+            )
+            const IDs = await responseIDs.json()
+            console.log(IDs)
+
             games.forEach(game => {
                 document.getElementById("boughtGames").insertAdjacentHTML('beforeend', `
                         <div class="glass p-4 rounded-2xl flex items-center justify-between border-l-8 border-cyan-500 bg-cyan-500/5 shadow-[0_0_15px_rgba(6,182,212,0.1)] mb-4">

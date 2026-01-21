@@ -221,7 +221,7 @@
 
             if (userID != null) {
                 if (cart.length > 0) {
-                    console.log("Intentando comprar carro...")
+                    console.log("Intentando comprar carro...",cart)
                     const response = await fetch(
                         `http://${SERVERIP}:8080/comprarCarrito/${userID}/${cart}`
                     )

@@ -222,10 +222,6 @@
             }
         }
 
-        function openGameDetails() {
-            window.location.href = `DetalleProducto.html?id=${gameID}`
-        }
-
         function addToCart() {
             try {
                 const cartContent = JSON.parse(localStorage.getItem("RETROWORLD-carro"))
@@ -245,8 +241,9 @@
         async function buyNow() {
             const userID = localStorage.getItem("usrID")
             if (userID != null) {
+                let requestList = [gameID]
                 const response = await fetch(
-                    `http://${SERVERIP}:8080/comprarCarrito/${userID}/[${gameID}]`
+                    `http://${SERVERIP}:8080/comprarCarrito/${userID}/${requestList}`
                 )
                 const result = await response.json()
 
@@ -264,6 +261,7 @@
                         cart.splice(index, 1);
                         localStorage.setItem("RETROWORLD-carro", JSON.stringify(cart))
                     }
+                    window.location.href = "Home.html"
                 }
             } else {
                 alert("Tienes que haber iniciado sesion para comprar")
