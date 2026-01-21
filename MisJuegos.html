@@ -164,11 +164,13 @@
     <script>
         const SERVERIP = "localhost"
 
+        //Montaje inicial
         updateUsrButton()
         fetchAndBuildMySoldGames()
         fetchAndBuildMyBoughtGames()
         updateItemsInCart()
 
+        //Localiza todos los juegos que tiene el usuario registrado en venta
         async function fetchAndBuildMySoldGames() {
             console.log("Haciendo fetch de mis juegos vendidos")
             const currentUserId = localStorage.getItem("usrID");
@@ -178,22 +180,24 @@
             const games = await response.json()
             //console.log("Respuesta", games)
 
+            //Vaciamos las secciones en las que vamos a meter juegos
             const secciones = ["boughtGames", "approvedGames", "pendingGames", "deniedGames", "soldGames"];
             secciones.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.innerHTML = "";
             });
 
+            //Recorremos todos los juegos sacados del fetch, notoriamente, esto no revela la informacion del comprador
             games.forEach(async (game) => {
                 //aceptado, comprador_id, id, imagen, nombre, precio, revisado, vendedor_id
                 const id = game.id
-                const img = decodeURI(game.imagen.replaceAll("🗿", "/"))
+                const img = decodeURI(game.imagen.replaceAll("🗿", "/")) //TECNOLOGIA MOAI
                 const title = game.nombre
                 const price = game.precio
                 if (currentUserId != null && game.vendedor_id == currentUserId) {
                     if (game.revisado) {
                         if (game.aceptado) {
-                            if (game.comprador_id != 0) {
+                            if (game.comprador_id != 0) { //Tenemos que hacer un segundo fetch para distinguir si ha sido comprado o no
                                 const response2 = await fetch(`http://${SERVERIP}:8080/verUsuario/${game.comprador_id}`)
                                 const sellerName = await response2.text();
                                 document.getElementById("soldGames").insertAdjacentHTML('beforeend',
@@ -294,7 +298,7 @@
 
             });
         }
-
+        //Los juegos que hemos comprado se obtienen de otro endpoint
         async function fetchAndBuildMyBoughtGames() {
             console.log("Haciendo fetch de mis juegos comprados")
             const currentUserId = localStorage.getItem("usrID");
@@ -303,12 +307,14 @@
             )
             const games = await response.json()
 
+            //Y otro mas para las "claves de activación"
             const responseIDs = await fetch(
                 `http://${SERVERIP}:8080/clavesJuegosComprados/${currentUserId}`
             )
             const IDs = await responseIDs.json()
             //console.log(IDs)
 
+            //La logica de la construccion no cambia nada realmente
             games.forEach(game => {
                 document.getElementById("boughtGames").insertAdjacentHTML('beforeend', `
                         <div class="glass p-4 rounded-2xl flex items-center justify-between border-l-8 border-cyan-500 bg-cyan-500/5 shadow-[0_0_15px_rgba(6,182,212,0.1)] mb-4">
@@ -330,20 +336,35 @@
             });
         }
 
+
+        //Funcion que se introduce a los onclicks de los botones de borrar con sus respectivas IDs
         async function deleteGame(id) {
             console.log("Peticion de borrar juego", id)
-            //@GetMapping("/borrarJuego/{idJuego}/{idVendedor}")
-            const currentUserId = localStorage.getItem("usrID");
-            const response = await fetch(
-                `http://${SERVERIP}:8080/borrarJuego/${id}/${currentUserId}`
-            )
-            const resultado = await response.json()
 
-            if (resultado) {
-                fetchAndBuildMySoldGames()
-            } else {
-                alert("Error al borrar el juego")
+            //Genera una alerta con 2 botones
+            //https://stackoverflow.com/questions/2054082/javascript-alert-with-3-buttons
+            var r = confirm("Segur@ que quieres eliminar este juego?\nEsta accion es PERMANENTE");
+            //Si el usuario acepta llamamos al endpoint de borrar
+            if (r == true) {
+                //@GetMapping("/borrarJuego/{idJuego}/{idVendedor}")
+                const currentUserId = localStorage.getItem("usrID");
+                const response = await fetch(
+                    `http://${SERVERIP}:8080/borrarJuego/${id}/${currentUserId}`
+                )
+                const resultado = await response.json()
+                
+                //Si el resultado da true, ya se ha borrado de la base de datos y podemos regenerar la seccion
+                if (resultado) {
+                    //Solo hace falta regenerar los juegos en venta porque no podemos borrar los ya vendidos
+                    fetchAndBuildMySoldGames()
+                } else {
+                    alert("Error al borrar el juego")
+                }
             }
+            else {
+                console.log("Peticion cancelada")
+            }
+
         }
 
         function goToLogin() {
@@ -363,7 +384,7 @@
         function cerrarSesion() {
             localStorage.removeItem("usrID")
             localStorage.removeItem("username")
-            window.location.href = "Home.html"
+            window.location.href = "Home.html" //Esta pagina no es accesible si no estas loggeado, así que desloggear te echa
             updateUsrButton()
             updateItemsInCart()
         }
